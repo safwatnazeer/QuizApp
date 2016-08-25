@@ -15,7 +15,12 @@ class ViewController: UIViewController {
     let trivia = Trivia() // create instance of the class that hold all data
     ///
     
-    var gameSound: SystemSoundID = 0
+    var gameSound: SystemSoundID = 0            // game start
+    var correctAnswerSound: SystemSoundID = 1   // correct answer sound
+    var wrongAnswerSound: SystemSoundID = 2     // wrong answer sound
+    var gameStartSound: SystemSoundID = 3   // new game start sound
+    var gameEndSound: SystemSoundID = 4     // game end sound
+    
        
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var firstButton: UIButton!
@@ -73,7 +78,17 @@ class ViewController: UIViewController {
     
     @IBAction func checkAnswer(sender: UIButton) {
         
-        questionField.text =  trivia.checkAnswer(sender.titleLabel!.text!) // set text of question feild to show result
+        let result = trivia.checkAnswer(sender.titleLabel!.text!) // tuple that has result of answer check
+        questionField.text   = result.0 // text of message
+        
+        let answerIsCorrect = result.1 // Bool to indicate if answer is correct or not
+        if answerIsCorrect {
+            AudioServicesPlaySystemSound(correctAnswerSound)
+        }
+        else {
+            AudioServicesPlaySystemSound(wrongAnswerSound)
+        }
+        
         loadNextRoundWithDelay(seconds: 2)
     }
     
@@ -83,6 +98,7 @@ class ViewController: UIViewController {
         if trivia.isGameOver() {
             // Game is over
             displayScore()
+            AudioServicesPlaySystemSound(gameEndSound)
         } else {
             // Continue game
             displayQuestion()
@@ -97,7 +113,7 @@ class ViewController: UIViewController {
         fourthButton.hidden = false
         
         trivia.prepareToPlayAgain()
-        
+        AudioServicesPlaySystemSound(gameStartSound)
         nextRound()
     }
     // MARK : Test layout guides
@@ -148,13 +164,31 @@ class ViewController: UIViewController {
     }
     
     func loadGameStartSound() {
-        let pathToSoundFile = NSBundle.mainBundle().pathForResource("GameSound", ofType: "wav")
-        let soundURL = NSURL(fileURLWithPath: pathToSoundFile!)
+        var pathToSoundFile = NSBundle.mainBundle().pathForResource("GameSound", ofType: "wav")
+        var soundURL = NSURL(fileURLWithPath: pathToSoundFile!)
         AudioServicesCreateSystemSoundID(soundURL, &gameSound)
+        
+        pathToSoundFile = NSBundle.mainBundle().pathForResource("wrong", ofType: "wav")
+        soundURL = NSURL(fileURLWithPath: pathToSoundFile!)
+        AudioServicesCreateSystemSoundID(soundURL, &wrongAnswerSound)
+
+        pathToSoundFile = NSBundle.mainBundle().pathForResource("correct", ofType: "wav")
+        soundURL = NSURL(fileURLWithPath: pathToSoundFile!)
+        AudioServicesCreateSystemSoundID(soundURL, &correctAnswerSound)
+        
+        pathToSoundFile = NSBundle.mainBundle().pathForResource("gamestart", ofType: "wav")
+        soundURL = NSURL(fileURLWithPath: pathToSoundFile!)
+        AudioServicesCreateSystemSoundID(soundURL, &gameStartSound)
+        
+        pathToSoundFile = NSBundle.mainBundle().pathForResource("gameend", ofType: "wav")
+        soundURL = NSURL(fileURLWithPath: pathToSoundFile!)
+        AudioServicesCreateSystemSoundID(soundURL, &gameEndSound)
+        
+        
     }
     
     func playGameStartSound() {
-        AudioServicesPlaySystemSound(gameSound)
+        AudioServicesPlaySystemSound(gameStartSound)
     }
 }
 

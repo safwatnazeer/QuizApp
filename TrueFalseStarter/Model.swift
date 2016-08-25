@@ -10,13 +10,6 @@ import Foundation
 import GameKit
 
 
-let trivia: [[String : String]] = [
-    ["Question": "Only female koalas can whistle", "Answer": "False"],
-    ["Question": "Blue whales are technically whales", "Answer": "True"],
-    ["Question": "Camels are cannibalistic", "Answer": "False"],
-    ["Question": "All ducks are birds", "Answer": "True"]
-]
-
 
 struct Question {
     
@@ -31,7 +24,7 @@ class Trivia {
     var questionsAsked = 0  // hold number of questions asked since game start
     var correctQuestions = 0 // hold number of correct answers
     var questionsPerRound = 4
-    var questionsAskedDuringGame = [Int]()
+    var questionsAskedDuringGame = [Int]() // array to hold the indices of questions that were already asked before
     
     init() {
         
@@ -103,7 +96,7 @@ class Trivia {
         return questions[indexOfSelectedQuestion]
     }
     
-    func checkAnswer(answer:String) -> String {
+    func checkAnswer(answer:String) -> (String,Bool) {
 
        
         questionsAsked += 1 // increment counter
@@ -111,9 +104,9 @@ class Trivia {
         let correctAnswerIndex = questions[currentQuestion].correctAnswer - 1
         if answer == questions[currentQuestion].options[correctAnswerIndex] {
             correctQuestions += 1
-            return "Correct!"
+            return ("Correct!", true)
         } else {
-            return "Sorry, wrong answer!"
+            return ("Sorry, wrong answer!",false)
         }
     }
     
@@ -138,6 +131,7 @@ class Trivia {
         }
         
     }
+
 // Helper function to check if question was asked before
     func isQuestionAskedBefore(questionIndex:Int) -> Bool {
         
