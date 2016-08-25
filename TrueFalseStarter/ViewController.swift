@@ -27,17 +27,21 @@ class ViewController: UIViewController {
     ]
     
     @IBOutlet weak var questionField: UILabel!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
+    @IBOutlet weak var firstButton: UIButton!
+    @IBOutlet weak var seccondButton: UIButton!
     @IBOutlet weak var playAgainButton: UIButton!
+    @IBOutlet weak var thirdButton: UIButton!
+    @IBOutlet weak var fourthButton: UIButton!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setLayout()
         loadGameStartSound()
         // Start game
         playGameStartSound()
         displayQuestion()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,8 +58,8 @@ class ViewController: UIViewController {
     
     func displayScore() {
         // Hide the answer buttons
-        trueButton.hidden = true
-        falseButton.hidden = true
+        firstButton.hidden = true
+        seccondButton.hidden = true
         
         // Display play again button
         playAgainButton.hidden = false
@@ -71,7 +75,7 @@ class ViewController: UIViewController {
         let selectedQuestionDict = trivia[indexOfSelectedQuestion]
         let correctAnswer = selectedQuestionDict["Answer"]
         
-        if (sender === trueButton &&  correctAnswer == "True") || (sender === falseButton && correctAnswer == "False") {
+        if (sender === firstButton &&  correctAnswer == "True") || (sender === seccondButton && correctAnswer == "False") {
             correctQuestions += 1
             questionField.text = "Correct!"
         } else {
@@ -93,14 +97,43 @@ class ViewController: UIViewController {
     
     @IBAction func playAgain() {
         // Show the answer buttons
-        trueButton.hidden = false
-        falseButton.hidden = false
+        firstButton.hidden = false
+        seccondButton.hidden = false
         
         questionsAsked = 0
         correctQuestions = 0
         nextRound()
     }
+    // MARK : Test layout guides
     
+    func setLayout() {
+        
+        // set round button corners
+        firstButton.layer.cornerRadius = 10
+        seccondButton.layer.cornerRadius = 10
+        thirdButton.layer.cornerRadius = 10
+        fourthButton.layer.cornerRadius = 10
+        
+        /// setup Layout guides to give equal space between buttons based on device size
+        let topLayoutGuide = UILayoutGuide()
+        let centerLayoutGuide = UILayoutGuide()
+        let bottomLayoutGuide = UILayoutGuide()
+        
+        view.addLayoutGuide(topLayoutGuide)
+        view.addLayoutGuide(centerLayoutGuide)
+        view.addLayoutGuide(bottomLayoutGuide)
+        
+        NSLayoutConstraint.activateConstraints([
+        topLayoutGuide.topAnchor.constraintEqualToAnchor(firstButton.bottomAnchor),
+        topLayoutGuide.bottomAnchor.constraintEqualToAnchor(seccondButton.topAnchor),
+        centerLayoutGuide.topAnchor.constraintEqualToAnchor(seccondButton.bottomAnchor),
+        centerLayoutGuide.bottomAnchor.constraintEqualToAnchor(thirdButton.topAnchor),
+        bottomLayoutGuide.topAnchor.constraintEqualToAnchor(thirdButton.bottomAnchor),
+        bottomLayoutGuide.bottomAnchor.constraintEqualToAnchor(fourthButton.topAnchor),
+        topLayoutGuide.heightAnchor.constraintEqualToAnchor(centerLayoutGuide.heightAnchor),
+        centerLayoutGuide.heightAnchor.constraintEqualToAnchor(bottomLayoutGuide.heightAnchor)
+        ])
+    }
 
     
     // MARK: Helper Methods
