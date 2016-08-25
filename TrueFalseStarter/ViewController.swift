@@ -78,7 +78,9 @@ class ViewController: UIViewController {
     }
     
     func nextRound() {
-        if trivia.questionsAsked == trivia.questionsPerRound {
+        
+        
+        if trivia.isGameOver() {
             // Game is over
             displayScore()
         } else {
@@ -94,8 +96,8 @@ class ViewController: UIViewController {
         thirdButton.hidden = false
         fourthButton.hidden = false
         
-        trivia.questionsAsked = 0
-        trivia.correctQuestions = 0
+        trivia.prepareToPlayAgain()
+        
         nextRound()
     }
     // MARK : Test layout guides

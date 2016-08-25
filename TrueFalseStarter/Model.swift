@@ -31,6 +31,7 @@ class Trivia {
     var questionsAsked = 0  // hold number of questions asked since game start
     var correctQuestions = 0 // hold number of correct answers
     var questionsPerRound = 4
+    var questionsAskedDuringGame = [Int]()
     
     init() {
         
@@ -89,8 +90,16 @@ class Trivia {
     
     
     func getQuestion() -> Question {
-       let indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextIntWithUpperBound(questions.count)
+        var indexOfSelectedQuestion: Int
+        var looping = 0
+        repeat
+        {   looping += 1
+            indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextIntWithUpperBound(questions.count)
+            print("looping .. \(looping) .. question index = \(indexOfSelectedQuestion)")
+        } while isQuestionAskedBefore(indexOfSelectedQuestion)
+        
         self.currentQuestion = indexOfSelectedQuestion
+        questionsAskedDuringGame.append(indexOfSelectedQuestion) // add question to list of asked questions
         return questions[indexOfSelectedQuestion]
     }
     
@@ -101,18 +110,43 @@ class Trivia {
     
         let correctAnswerIndex = questions[currentQuestion].correctAnswer - 1
         if answer == questions[currentQuestion].options[correctAnswerIndex] {
-           
             correctQuestions += 1
             return "Correct!"
         } else {
-           
             return "Sorry, wrong answer!"
         }
     }
     
+    
     func getScore() -> String {
-        
         return  "Way to go!\nYou got \(correctQuestions) out of \(questionsPerRound) correct!"
+    }
+    
+    func prepareToPlayAgain() {
+        questionsAsked = 0
+        correctQuestions = 0
+        questionsAskedDuringGame.removeAll()
+        
+    }
+    
+    func isGameOver() -> Bool {
+        
+        if questionsAsked >= questionsPerRound {
+            return true
+        } else {
+            return false
+        }
+        
+    }
+// Helper function to check if question was asked before
+    func isQuestionAskedBefore(questionIndex:Int) -> Bool {
+        
+        for i in questionsAskedDuringGame {
+            if questionIndex == i {
+                return true
+            }
+        }
+     return false
     }
     
 }
