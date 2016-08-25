@@ -127,6 +127,7 @@ class ViewController: UIViewController {
         topLayoutGuide.heightAnchor.constraintEqualToAnchor(centerLayoutGuide.heightAnchor),
         centerLayoutGuide.heightAnchor.constraintEqualToAnchor(bottomLayoutGuide.heightAnchor)
         ])
+        
     }
 
     
