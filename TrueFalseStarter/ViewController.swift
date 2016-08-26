@@ -275,7 +275,7 @@ class ViewController: UIViewController {
     
     func startTimer(){
         timer.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector:#selector(timerAction), userInfo: nil, repeats: false)
+        timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector:#selector(timerAction), userInfo: nil, repeats: false)
     
     }
     func stopTimer() {
