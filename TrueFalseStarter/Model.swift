@@ -96,7 +96,7 @@ class Trivia {
         return questions[indexOfSelectedQuestion]
     }
     
-    func checkAnswer(answer:String) -> (String,Bool) {
+    func checkAnswer(answer:String) -> Bool {
 
        
         questionsAsked += 1 // increment counter
@@ -104,16 +104,24 @@ class Trivia {
         let correctAnswerIndex = questions[currentQuestion].correctAnswer - 1
         if answer == questions[currentQuestion].options[correctAnswerIndex] {
             correctQuestions += 1
-            return ("Correct!", true)
+            return true
         } else {
-            return ("Sorry, wrong answer!",false)
+            return false
         }
+    }
+    
+    func getCorrectAnswer() -> String {
+        
+        let correctAnswerIndex = questions[currentQuestion].correctAnswer - 1
+        return questions[currentQuestion].options[correctAnswerIndex]
     }
     
     
     func getScore() -> String {
         return  "Way to go!\nYou got \(correctQuestions) out of \(questionsPerRound) correct!"
     }
+    
+    
     
     func prepareToPlayAgain() {
         questionsAsked = 0

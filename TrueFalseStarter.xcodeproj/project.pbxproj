@@ -17,7 +17,7 @@
 		97093D411C913506001275BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97093D3F1C913506001275BC /* Main.storyboard */; };
 		97093D431C913506001275BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97093D421C913506001275BC /* Assets.xcassets */; };
 		97093D461C913506001275BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97093D441C913506001275BC /* LaunchScreen.storyboard */; };
-		97093D531C932116001275BC /* GameSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97093D521C932116001275BC /* GameSound.wav */; };
+		97093D531C932116001275BC /* timeout.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97093D521C932116001275BC /* timeout.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		97093D421C913506001275BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97093D451C913506001275BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97093D471C913506001275BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		97093D521C932116001275BC /* GameSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = GameSound.wav; sourceTree = "<group>"; };
+		97093D521C932116001275BC /* timeout.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = timeout.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +53,7 @@
 				303FDA701D6F9F6300BF849B /* correct.wav */,
 				303FDA741D6F9FCC00BF849B /* gameend.wav */,
 				303FDA721D6F9FAB00BF849B /* gamestart.wav */,
-				97093D521C932116001275BC /* GameSound.wav */,
+				97093D521C932116001275BC /* timeout.wav */,
 				303FDA6C1D6F98C500BF849B /* wrong.wav */,
 			);
 			name = Sounds;
@@ -150,7 +150,7 @@
 			files = (
 				303FDA751D6F9FCC00BF849B /* gameend.wav in Resources */,
 				303FDA6D1D6F98C500BF849B /* wrong.wav in Resources */,
-				97093D531C932116001275BC /* GameSound.wav in Resources */,
+				97093D531C932116001275BC /* timeout.wav in Resources */,
 				303FDA731D6F9FAB00BF849B /* gamestart.wav in Resources */,
 				97093D461C913506001275BC /* LaunchScreen.storyboard in Resources */,
 				97093D431C913506001275BC /* Assets.xcassets in Resources */,
