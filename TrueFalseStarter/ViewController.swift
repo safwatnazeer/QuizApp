@@ -11,10 +11,8 @@ import GameKit
 import AudioToolbox
 
 class ViewController: UIViewController {
-    ///
+
     let trivia = Trivia() // create instance of the class that hold all data
-    ///
-    
     
     var correctAnswerSound: SystemSoundID = 0   // correct answer sound
     var wrongAnswerSound: SystemSoundID = 1     // wrong answer sound
@@ -23,6 +21,7 @@ class ViewController: UIViewController {
     var timeOutSound: SystemSoundID = 4 // time out sound
     
     var timer = NSTimer()
+    var constraintsFourButtons = [NSLayoutConstraint]()
     
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var firstButton: UIButton!
@@ -35,7 +34,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setLayout()
         loadGameStartSound()
         // Start game
         playGameStartSound()
@@ -50,15 +48,20 @@ class ViewController: UIViewController {
     
     // a function to display a question and set all answer buttons to possible options
     func displayQuestion() {
-        
         let currentQuestion = trivia.getQuestion() // ask trivia class to get a new random question
-        
-        questionField.text = currentQuestion.question 
-        
+        questionField.text = currentQuestion.question
         firstButton.setTitle(currentQuestion.options[0], forState: .Normal)
         seccondButton.setTitle(currentQuestion.options[1], forState: .Normal)
         thirdButton.setTitle(currentQuestion.options[2], forState: .Normal)
-        fourthButton.setTitle(currentQuestion.options[3], forState: .Normal)
+        if currentQuestion.options.count == 4 {
+            fourthButton.setTitle(currentQuestion.options[3], forState: .Normal)
+            setLayout(4) // setup layout for 4 options
+            fourthButton.hidden = false
+        } else {
+            fourthButton.hidden = true
+            setLayout(3) // setup layout for 3 options only
+            
+        }
         
         playAgainButton.hidden = true
         resultLabel.hidden = true
@@ -139,8 +142,12 @@ class ViewController: UIViewController {
         nextRound()
     }
     
-    func setLayout() {
+    func setLayout(numberOfOptions: Int) {
         
+        print("layout guides=\(view.layoutGuides.count) constraints = \(view.constraints.count)")
+        for layoutGuid in view.layoutGuides {
+            view.removeLayoutGuide(layoutGuid)
+        }
         // set round button corners
         firstButton.layer.cornerRadius = 10
         seccondButton.layer.cornerRadius = 10
@@ -160,22 +167,38 @@ class ViewController: UIViewController {
         view.addLayoutGuide(secondLayoutGuide)
         view.addLayoutGuide(thirdLayoutGuide)
         view.addLayoutGuide(fourthLayoutGuide)
-        
+    
+    
+        if numberOfOptions == 4 {
         NSLayoutConstraint.activateConstraints([
-        firstLayoutGuide.topAnchor.constraintEqualToAnchor(firstButton.bottomAnchor),
-        firstLayoutGuide.bottomAnchor.constraintEqualToAnchor(seccondButton.topAnchor),
-        secondLayoutGuide.topAnchor.constraintEqualToAnchor(seccondButton.bottomAnchor),
-        secondLayoutGuide.bottomAnchor.constraintEqualToAnchor(thirdButton.topAnchor),
-        thirdLayoutGuide.topAnchor.constraintEqualToAnchor(thirdButton.bottomAnchor),
-        thirdLayoutGuide.bottomAnchor.constraintEqualToAnchor(fourthButton.topAnchor),
-        fourthLayoutGuide.topAnchor.constraintEqualToAnchor(fourthButton.bottomAnchor),
-        fourthLayoutGuide.bottomAnchor.constraintEqualToAnchor(nextQuestionButton.topAnchor),
+            firstLayoutGuide.topAnchor.constraintEqualToAnchor(firstButton.bottomAnchor),
+            firstLayoutGuide.bottomAnchor.constraintEqualToAnchor(seccondButton.topAnchor),
+            secondLayoutGuide.topAnchor.constraintEqualToAnchor(seccondButton.bottomAnchor),
+            secondLayoutGuide.bottomAnchor.constraintEqualToAnchor(thirdButton.topAnchor),
+            thirdLayoutGuide.topAnchor.constraintEqualToAnchor(thirdButton.bottomAnchor),
+            thirdLayoutGuide.bottomAnchor.constraintEqualToAnchor(fourthButton.topAnchor),
+            fourthLayoutGuide.topAnchor.constraintEqualToAnchor(fourthButton.bottomAnchor),
+            fourthLayoutGuide.bottomAnchor.constraintEqualToAnchor(nextQuestionButton.topAnchor),
             
+            firstLayoutGuide.heightAnchor.constraintEqualToAnchor(secondLayoutGuide.heightAnchor),
+            secondLayoutGuide.heightAnchor.constraintEqualToAnchor(thirdLayoutGuide.heightAnchor),
+            thirdLayoutGuide.heightAnchor.constraintEqualToAnchor(fourthLayoutGuide.heightAnchor)
+            ])
+        }
+        else {
+            NSLayoutConstraint.activateConstraints([
+            firstLayoutGuide.topAnchor.constraintEqualToAnchor(firstButton.bottomAnchor),
+            firstLayoutGuide.bottomAnchor.constraintEqualToAnchor(seccondButton.topAnchor),
+            secondLayoutGuide.topAnchor.constraintEqualToAnchor(seccondButton.bottomAnchor),
+            secondLayoutGuide.bottomAnchor.constraintEqualToAnchor(thirdButton.topAnchor),
+            thirdLayoutGuide.topAnchor.constraintEqualToAnchor(thirdButton.bottomAnchor),
+            thirdLayoutGuide.bottomAnchor.constraintEqualToAnchor(nextQuestionButton.topAnchor),
             
-        firstLayoutGuide.heightAnchor.constraintEqualToAnchor(secondLayoutGuide.heightAnchor),
-        secondLayoutGuide.heightAnchor.constraintEqualToAnchor(thirdLayoutGuide.heightAnchor),
-        thirdLayoutGuide.heightAnchor.constraintEqualToAnchor(fourthLayoutGuide.heightAnchor)
-        ])
+            firstLayoutGuide.heightAnchor.constraintEqualToAnchor(secondLayoutGuide.heightAnchor),
+            secondLayoutGuide.heightAnchor.constraintEqualToAnchor(thirdLayoutGuide.heightAnchor)
+            ])
+
+        }
         
     }
 

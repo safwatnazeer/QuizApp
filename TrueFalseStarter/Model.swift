@@ -28,7 +28,7 @@ class Trivia {
     
     init() {
         
-        questions.append(
+ /*       questions.append(
             Question(question: "This was the only US President to serve more than two consecutive terms.",
             options: ["George Washington","Franklin D. Roosevelt","Woodrow Wilson","Andrew Jackson"],
             correctAnswer: 2)
@@ -63,11 +63,13 @@ class Trivia {
                 options: ["Yangtze","Mississippi","Congo","Mekong"],
                 correctAnswer: 2)
         )
+   */
         questions.append(
             Question(question: "Which city is the oldest?",
                 options: ["Mexico City","Cape Town","San Juan","Sydney"],
                 correctAnswer: 1)
         )
+ 
         questions.append(
             Question(question: "Which country was the first to allow women to vote in national elections?",
                 options: ["Poland","United States","Sweden","Senegal"],
@@ -79,6 +81,18 @@ class Trivia {
                 correctAnswer: 4)
         )
 
+        questions.append(
+            Question(question: "On which country coast you can see two oceans meet?",
+                options: ["France","South Africa","India"],
+                correctAnswer: 2)
+        )
+        questions.append(
+            Question(question: "Which african country won cup of nations in football 3 times in a row?",
+                options: ["Egypt","Ghana","South Africa"],
+                correctAnswer: 1)
+        )
+
+        
     }
     
     
