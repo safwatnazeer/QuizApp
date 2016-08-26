@@ -139,6 +139,10 @@ class Trivia {
         }
         
     }
+    func timeOutOccured()  {
+        questionsAsked += 1 // increment counter by the question that wasnt answered
+    }
+    
 
 // Helper function to check if question was asked before
     func isQuestionAskedBefore(questionIndex:Int) -> Bool {

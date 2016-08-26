@@ -288,6 +288,7 @@ class ViewController: UIViewController {
         resultLabel.textColor = UIColor.redColor()
         resultLabel.hidden = false
         AudioServicesPlaySystemSound(timeOutSound)
+        trivia.timeOutOccured()// inform trivia that timeout occured to adjust calculations
         displayCorrectAnswer()
     }
     
