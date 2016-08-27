@@ -102,7 +102,8 @@
                                 <rect key="frame" x="36" y="264" width="303" height="50"/>
                                 <color key="backgroundColor" red="0.047058823530000002" green="0.47450980390000003" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="AXH-af-o6t"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="AXH-af-o6t"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="90" id="Xyc-Ja-8Rz"/>
                                     <constraint firstAttribute="width" constant="300" id="bQ1-rV-dcH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -110,6 +111,7 @@
                                 <state key="normal" title="3rd Button"/>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="Xyc-Ja-8Rz"/>
                                         <exclude reference="bQ1-rV-dcH"/>
                                     </mask>
                                 </variation>

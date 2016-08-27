@@ -63,7 +63,7 @@ class Trivia {
                 options: ["Yangtze","Mississippi","Congo","Mekong"],
                 correctAnswer: 2)
         )
-   */
+ 
         questions.append(
             Question(question: "Which city is the oldest?",
                 options: ["Mexico City","Cape Town","San Juan","Sydney"],
@@ -75,6 +75,7 @@ class Trivia {
                 options: ["Poland","United States","Sweden","Senegal"],
                 correctAnswer: 1)
         )
+ */
         questions.append(
             Question(question: "Which of these countries won the most medals in the 2012 Summer Games?",
                 options: ["France","Germany","Japan","Great Britian"],
@@ -95,20 +96,36 @@ class Trivia {
         
     }
     
-    
+    // Function to return a random question that wasn't asked before
+    // Assumption that total number of questions is always >  questions per round
     func getQuestion() -> Question {
-        var indexOfSelectedQuestion: Int
-        var looping = 0
-        repeat
-        {   looping += 1
+            var indexOfSelectedQuestion: Int
+            var looping = 0
+            
+            // a repeat while loop to search for a new random question. In case we run out of new question it will return any question. but this will happen only if number of total questions is not > questiosn per round
+            repeat
+            {   looping += 1
             indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextIntWithUpperBound(questions.count)
             print("looping .. \(looping) .. question index = \(indexOfSelectedQuestion)")
-        } while isQuestionAskedBefore(indexOfSelectedQuestion)
+            } while isQuestionAskedBefore(indexOfSelectedQuestion) && (questionsAskedDuringGame.count<questions.count)
         
-        self.currentQuestion = indexOfSelectedQuestion
-        questionsAskedDuringGame.append(indexOfSelectedQuestion) // add question to list of asked questions
-        return questions[indexOfSelectedQuestion]
+            self.currentQuestion = indexOfSelectedQuestion
+            questionsAskedDuringGame.append(indexOfSelectedQuestion) // add question to list of asked questions
+            return questions[indexOfSelectedQuestion]
+        
+        
     }
+    // Helper function to check if question was asked before
+    func isQuestionAskedBefore(questionIndex:Int) -> Bool {
+        
+        for i in questionsAskedDuringGame {
+            if questionIndex == i {
+                return true
+            }
+        }
+        return false
+    }
+
     
     func checkAnswer(answer:String) -> Bool {
 
@@ -158,15 +175,5 @@ class Trivia {
     }
     
 
-// Helper function to check if question was asked before
-    func isQuestionAskedBefore(questionIndex:Int) -> Bool {
-        
-        for i in questionsAskedDuringGame {
-            if questionIndex == i {
-                return true
-            }
-        }
-     return false
-    }
-    
+
 }
