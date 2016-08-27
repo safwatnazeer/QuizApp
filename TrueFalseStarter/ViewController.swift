@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  TrueFalseStarter
-//
-//  Created by Pasan Premaratne on 3/9/16.
-//  Copyright © 2016 Treehouse. All rights reserved.
-//
+
 
 import UIKit
 import GameKit
@@ -12,8 +6,9 @@ import AudioToolbox
 
 class ViewController: UIViewController {
 
-    let trivia = Trivia() // create instance of the class that hold all data
+    let trivia = Trivia() // create an instance of the class that hold all game data
     
+    // define sound effects variables
     var correctAnswerSound: SystemSoundID = 0   // correct answer sound
     var wrongAnswerSound: SystemSoundID = 1     // wrong answer sound
     var gameStartSound: SystemSoundID = 2       // new game start sound
@@ -21,9 +16,10 @@ class ViewController: UIViewController {
     var timeOutSound: SystemSoundID = 4         // time out sound
     
     var timer = NSTimer()       // create timer object to be used to time every question, actual setup is done in helper methods section
-    let questionWithFourOptions  = 4   // constant to represent a question with 4 answer options
-    let questionWithThreeOptions = 3   // constant to represent a question with 3 answer options
+    let questionWithFourOptions  = 4   // constant to represent a question with 4 answers options
+    let questionWithThreeOptions = 3   // constant to represent a question with 3 answers options
     
+    // outlets to stroyboard elements
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var firstButton: UIButton!
     @IBOutlet weak var seccondButton: UIButton!
@@ -225,12 +221,12 @@ class ViewController: UIViewController {
         
     }
     
-    // Implementation of optional requirement #4: Implement a way to appropriately display the correct answer
+    // Implementation of optional requirement #3: Implement a way to appropriately display the correct answer
     // Function to display correct answer by highlighting the button with correct answer and disable the others
     // User interaction is disabled anyway so user can't select any answer after correct answer is shown
     func displayCorrectAnswer() {
         
-        disableAllButtons() //
+        disableAllButtons()
     
         // get the correct answer and compare to all buttons and highlight the correct one
         let correctAnswer = trivia.getCorrectAnswer()
